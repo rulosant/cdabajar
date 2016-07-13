@@ -5,8 +5,9 @@ import lxml.html
 import requests
 import ast
 from subprocess import call
+import string
 
-url_serie = 'http://cda.gob.ar/serie/3154/el-legado'
+url_serie = 'http://cda.gob.ar/serie/1134/quien-mato-al-bebe-uriarte-'
 
 #Si debug es 0 omite los mensajes 
 debug = 0
@@ -124,9 +125,14 @@ for enlace in enlaces:
     print enlace
 
 if descargar:
+    i= 0
     for enlace in enlaces:
+        i=i+1
         print enlace
         video = enlace[1]
-        salida = enlace[0] + ".mp4"
+        salida = enlace[0] + " - " + str(i) +".mp4"
+        if 1:#debug:
+            print video 
+            print salida
         call(["ffmpeg", "-i", video, "-c", "copy", "-bsf:a", "aac_adtstoasc", salida])
     
